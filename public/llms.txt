@@ -1,0 +1,31 @@
+# Inievo Technologies
+
+> Bangladesh's digital growth partner — high-performance websites, custom software, and professional web presence for SMEs and top professionals.
+
+Inievo Technologies is a Chittagong-based studio led by Abu Md. Selim. We engineer trust into every product we ship, serving local businesses, Facebook-based shops, doctors, engineers, lawyers, and institutions across Bangladesh and abroad.
+
+## Pages
+
+- [Home](/): Overview of Inievo Technologies and our three service pillars.
+- [About](/about): Our studio, founder, and philosophy.
+- [Contact](/contact): Start a project conversation — free initial audit, ~24h response.
+
+## Services
+
+- [SME Web Presence](/services/sme-web-presence): Fast, credible, SEO-optimized websites for local businesses and Facebook shops.
+- [Custom Software](/services/custom-software): Budget-friendly, scalable custom software and mobile apps.
+- [Professional Presence](/services/pro-presence): Trust-first personal websites for doctors, engineers, and lawyers.
+
+## Labs
+
+- [Inievo Labs](/labs): Research-driven products including The Chattala, a hyperlocal app for Chittagong.
+
+## Blog
+
+- [Blog](/blog): Field notes on building digital in Bangladesh.
+- [Why Facebook Shops Need a Website](/blog/why-facebook-shops-need-website-bangladesh): Why every Bangladeshi Facebook shop needs an owned website.
+- [Is Your Business Ready for Custom Software?](/blog/is-your-business-ready-for-custom-software): 7 signals it's time to move beyond spreadsheets.
+- [Cardiologist Personal Website Case Study](/blog/cardiologist-personal-website-case-study): How a credibility-first site 3x'd inbound consultations.
+- [The Chattala: Building a Hyperlocal App](/blog/the-chattala-building-a-hyperlocal-app): Inievo Labs field notes on a Chittagong-specific product.
+- [Next.js vs WordPress for Bangladeshi SMEs](/blog/nextjs-vs-wordpress-for-bangladeshi-sme): Honest comparison across speed, cost, security, and SEO.
+- [Web Presence ROI Case Study](/blog/web-presence-roi-local-business-case-study): 6 months of data from a Chittagong retailer.
