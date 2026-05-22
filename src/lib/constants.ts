@@ -10,9 +10,9 @@ import type { NavLink, SocialLink } from "./types";
 export const SITE_CONFIG = {
   name: "Inievo Technologies",
   shortName: "Inievo",
-  tagline: "Engineering trust into every pixel and every line of code.",
+  tagline: "Architecting high-fidelity platforms and bespoke digital experiences.",
   description:
-    "Inievo Technologies is a premium IT agency from Bangladesh — building bespoke software, web presence, and digital products for ambitious teams.",
+    "Inievo is an elite software engineering studio and digital design atelier. We build high-performance web systems, custom software architectures, and premium brand experiences for ambitious global teams.",
   url: "https://inievo.com",
   email: "hello@inievo.com",
   phone: "+8809678791213",
@@ -24,19 +24,19 @@ export const SITE_CONFIG = {
 export const NAV_LINKS: readonly NavLink[] = [
   { label: "Home", href: "/", description: "Inievo at a glance" },
   {
-    label: "SME Web Presence",
+    label: "Web Systems",
     href: "/services/sme-web-presence",
-    description: "Launch-ready sites for growing businesses",
+    description: "High-performance digital foundations for growing businesses.",
   },
   {
-    label: "Custom Software",
+    label: "Bespoke Engineering",
     href: "/services/custom-software",
-    description: "Bespoke platforms engineered to scale",
+    description: "Proprietary software architectures engineered to scale.",
   },
   {
-    label: "Pro Presence",
+    label: "Brand Systems",
     href: "/services/pro-presence",
-    description: "Premium digital brand systems",
+    description: "Editorial-grade digital identities and elite portfolios.",
   },
   { label: "Labs", href: "/labs", description: "Inievo Labs — including The Chattala" },
   { label: "Blog", href: "/blog", description: "Field notes from our studio" },
@@ -55,19 +55,19 @@ export const PRIMARY_NAV: readonly NavLink[] = [
 
 export const SERVICE_LINKS: readonly NavLink[] = [
   {
-    label: "SME Web Presence",
+    label: "Web Systems",
     href: "/services/sme-web-presence",
-    description: "Launch-ready sites for growing businesses",
+    description: "High-performance digital foundations for growing businesses.",
   },
   {
-    label: "Custom Software",
+    label: "Bespoke Engineering",
     href: "/services/custom-software",
-    description: "Bespoke platforms engineered to scale",
+    description: "Proprietary software architectures engineered to scale.",
   },
   {
-    label: "Pro Presence",
+    label: "Brand Systems",
     href: "/services/pro-presence",
-    description: "Premium digital brand systems",
+    description: "Editorial-grade digital identities and elite portfolios.",
   },
 ] as const;
 
@@ -80,11 +80,13 @@ export const COMPANY_LINKS: readonly NavLink[] = [
 
 /** Brand color tokens mirrored for runtime use (charts, inline SVG, etc.). */
 export const BRAND_COLORS = {
-  primary: "#137ece",
-  deep: "#0f5fa3",
-  tint: "#e8f4fd",
-  ink: "#0a0f1e",
-  paper: "#f8fafc",
+  primary: "#137ece",      // brand blue
+  deep: "#0f68ad",         // brand deep blue
+  tint: "#e8f2fb",         // brand soft blue tint
+  ink: "#111827",          // heading/text color
+  paper: "#f7f8fa",        // base light background
+  highlight: "#a87400",    // premium gold/yellow accent
+  highlightSoft: "#f6e7b2" // soft gold/yellow highlight
 } as const;
 
 export const SOCIAL_LINKS: readonly SocialLink[] = [
@@ -95,34 +97,33 @@ export const SOCIAL_LINKS: readonly SocialLink[] = [
 ] as const;
 
 export const CTA = {
-  primary: { label: "Get a Free Audit", href: "/contact" },
-  secondary: { label: "Explore Services", href: "/services/sme-web-presence" },
+  primary: { label: "Initiate a Project", href: "/contact" },
+  secondary: { label: "Explore Capabilities", href: "/services/sme-web-presence" },
 } as const;
 
 export const FOOTER_NOTE = "";
 
 export const HERO_CONTENT = {
-  eyebrow: "Transforming visionary ideas into scalable realities",
-  headlineLead: "We Build Digital",
-  rotatingWords: ["Presence", "Authority", "Systems", "Legacies"] as const,
+  eyebrow: "Elite Software Engineering & Design Studio",
+  headlineLead: "We architect",
+  rotatingWords: ["Systems", "Experiences", "Identities", "Platforms"] as const,
   subheadline:
-    "From local shops to elite professionals — Inievo architects digital experiences that build trust, drive growth, and scale with your ambition.",
-  primaryCta: { label: "Start Your Project", href: "/contact" },
-  secondaryCta: { label: "See Our Work", href: "/labs" },
+    "We partner with ambitious founders, established professionals, and growing enterprises to craft enduring digital platforms that blend structural integrity with timeless design.",
+  primaryCta: { label: "Initiate Project", href: "/contact" },
+  secondaryCta: { label: "Explore Labs", href: "/labs" },
   floatingStats: [
-    { id: "projects", value: "50+", label: "Projects Delivered", icon: "rocket" },
+    { id: "projects", value: "50+", label: "Completed Projects", icon: "rocket" },
     { id: "satisfaction", value: "100%", label: "Client Satisfaction", icon: "heart" },
-    { id: "domains", value: "3", label: "Core Domains", icon: "layers" },
+    { id: "domains", value: "3", label: "Core Capabilities", icon: "layers" },
   ] as const,
 } as const;
 
 export const TRUST_BAR_ITEMS = [
-  "🏪 Local Business Growth",
-  "⚡ Custom Software",
-  "👤 Pro Web Presence",
-  "🔬 Research-Driven",
-  "📱 Mobile-First",
-  "🇧🇩 Made in Bangladesh",
+  "Web Presence Systems",
+  "Bespoke Platform Engineering",
+  "Editorial Brand Design",
+  "Hyperlocal Product Research",
+  "Chattagram, Bangladesh",
 ] as const;
 
 export const STATS = [
@@ -130,29 +131,29 @@ export const STATS = [
     id: "projects",
     value: 50,
     suffix: "+",
-    label: "Projects",
-    description: "Shipped across SME, enterprise, and labs work.",
+    label: "Engagements",
+    description: "Shipped across bespoke software, digital products, and studio labs.",
   },
   {
     id: "domains",
     value: 3,
     suffix: "",
-    label: "Domains",
-    description: "Web presence, custom software, and pro brand systems.",
+    label: "Core Verticals",
+    description: "Web systems, platform engineering, and brand identity systems.",
   },
   {
     id: "satisfaction",
     value: 100,
     suffix: "%",
-    label: "Satisfaction",
-    description: "Repeat-client rate across every engagement to date.",
+    label: "Retention",
+    description: "Client satisfaction and long-term project support rate.",
   },
   {
     id: "roi",
-    value: 2,
-    suffix: "x",
-    label: "Avg ROI",
-    description: "Average measurable return within the first 12 months.",
+    value: 95,
+    suffix: "%",
+    label: "Performance Gains",
+    description: "Average PageSpeed scores and performance improvements after launch.",
   },
 ] as const;
 
@@ -161,37 +162,37 @@ export const TEAM_MEMBERS = [
     id: "selim",
     name: "Abu Md. Selim",
     role: "Founder & Principal Engineer",
-    bio: "Architects every Inievo engagement end-to-end — from research to launch.",
+    bio: "Architects the technical direction and leads engineering end-to-end — bridging structural integrity with clean aesthetics.",
     linkedin: "https://www.linkedin.com/in/abu-md-selim",
   },
   {
     id: "design-lead",
     name: "Design Lead",
     role: "Brand & Product Design",
-    bio: "Crafts trust-first interfaces that feel inevitable.",
+    bio: "Directs visual language and brand systems — designing high-fidelity, editorial-grade user experiences.",
     linkedin: "#",
   },
   {
     id: "engineering-lead",
     name: "Engineering Lead",
     role: "Platforms & Infrastructure",
-    bio: "Owns scalable architectures across our custom builds.",
+    bio: "Designs distributed backend infrastructure and scalable cloud systems.",
     linkedin: "#",
   },
   {
     id: "research-lead",
     name: "Research Lead",
     role: "Inievo Labs",
-    bio: "Leads hyperlocal product research from Chattogram.",
+    bio: "Directs hyperlocal user research and coordinates internal product labs.",
     linkedin: "#",
   },
-] as const;
+ ] as const;
 
 export const TESTIMONIALS = [
   {
     id: "t1",
     quote:
-      "They didn't just build a website — they rebuilt how customers find and trust us.",
+      "Inievo transformed our operational bottleneck into a high-throughput digital engine. The performance gains were immediate.",
     author: "Rashed Karim",
     role: "Founder",
     company: "Karim & Sons",
@@ -199,7 +200,7 @@ export const TESTIMONIALS = [
   {
     id: "t2",
     quote:
-      "The platform feels like it was made for our team. Three months in and we still can't break it.",
+      "Their engineering rigor is exceptional. The systems they built for us are highly resilient and effortlessly scalable.",
     author: "Dr. Nusrat Jahan",
     role: "Cardiologist",
     company: "Private Practice, Dhaka",
@@ -207,7 +208,7 @@ export const TESTIMONIALS = [
   {
     id: "t3",
     quote:
-      "Inievo treated our project like a partnership, not a transaction. Rare and refreshing.",
+      "They operate as true product partners rather than a transaction service. Their design sensibility is elite.",
     author: "Tanvir Ahmed",
     role: "Director",
     company: "Chattala Trading",
@@ -217,9 +218,9 @@ export const TESTIMONIALS = [
 export { BLOG_POST_SEEDS as BLOG_POSTS, BLOG_CATEGORIES_FULL as BLOG_CATEGORIES } from "@/data/blog-posts";
 
 export const SERVICE_INTEREST_OPTIONS = [
-  "SME Web Presence",
-  "Custom Software",
-  "Pro Presence",
+  "Web Systems",
+  "Bespoke Engineering",
+  "Brand Systems",
   "Inievo Labs",
   "Not sure yet",
 ] as const;
@@ -231,5 +232,4 @@ export const BUDGET_OPTIONS = [
   "৳10,00,000+",
 ] as const;
 
-export const WHATSAPP_NUMBER = "+8801XXXXXXXXX";
-
+export const WHATSAPP_NUMBER = "+8801410177888";
