@@ -9,15 +9,7 @@
 
 import { SITE_CONFIG } from "./constants";
 
-export type PageKey =
-  | "home"
-  | "sme"
-  | "custom"
-  | "pro"
-  | "labs"
-  | "blog"
-  | "about"
-  | "contact";
+export type PageKey = "home" | "sme" | "custom" | "pro" | "labs" | "blog" | "about" | "contact";
 
 export interface SeoEntry {
   readonly title: string;
@@ -96,11 +88,7 @@ export const SEO_CONFIG: Readonly<Record<PageKey, SeoEntry>> = {
     title: "Inievo Blog | Field Notes on Building Digital in Bangladesh",
     description:
       "Strategy for SMEs, engineering deep-dives, and quiet case studies from the Inievo studio in Bangladesh.",
-    keywords: [
-      "Bangladesh tech blog",
-      "SME growth blog",
-      "web development insights Bangladesh",
-    ],
+    keywords: ["Bangladesh tech blog", "SME growth blog", "web development insights Bangladesh"],
     path: "/blog",
   },
   about: {

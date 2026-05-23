@@ -11,8 +11,7 @@ import type { FAQ } from "@/lib/types";
 
 export const SME_FAQS: readonly FAQ[] = [
   {
-    question:
-      "আমার Facebook page-এ তো ভালোই sales হচ্ছে। Website কি সত্যিই দরকার?",
+    question: "আমার Facebook page-এ তো ভালোই sales হচ্ছে। Website কি সত্যিই দরকার?",
     answer:
       "Facebook হলো ভাড়া করা জায়গা — algorithm পাল্টালে আপনার reach রাতারাতি কমে যেতে পারে। Website হলো আপনার নিজের সম্পত্তি। নতুন customer যখন আপনার ব্র্যান্ড Google-এ search করেন, তখন একটা professional website থাকা মানেই credibility — যেটা DM-based business কখনোই দিতে পারে না। সবচেয়ে বড় কথা: Facebook + Website একসাথে কাজ করলে আপনার ad spend-এর ROI প্রায় দ্বিগুণ হয়ে যায়।",
   },
@@ -22,8 +21,7 @@ export const SME_FAQS: readonly FAQ[] = [
       "একটি launch-ready SME website সাধারণত ৳৩৫,০০০ থেকে ৳১,৫০,০০০ টাকার মধ্যে হয়, কাজের scope-এর উপর নির্ভর করে। সময় লাগে ৩–৫ সপ্তাহ। আমরা কখনো hidden cost যোগ করি না — কথা বলার পরে আপনি একটা fixed quote পাবেন এবং সেটাই final দাম।",
   },
   {
-    question:
-      "Website বানানোর পর maintain করতে কি আলাদা technical knowledge লাগবে?",
+    question: "Website বানানোর পর maintain করতে কি আলাদা technical knowledge লাগবে?",
     answer:
       "একদম না। আমরা একটি সহজ Bangla-friendly admin panel দেই যেখান থেকে আপনি product, price, stock নিজে update করতে পারবেন — ঠিক Facebook post দেওয়ার মতো সহজ। আর hosting, SSL, security patch — এই সব কিছু আমাদের monthly care plan-এ included।",
   },
@@ -33,8 +31,7 @@ export const SME_FAQS: readonly FAQ[] = [
       "অবশ্যই। আমরা আপনার existing Facebook photos নিয়ে সেগুলো optimize করি — automatic compression, lazy loading, এবং WebP format — যাতে website-এ আপনার product দেখতে আরও sharp লাগে এবং mobile data কম খরচ হয়।",
   },
   {
-    question:
-      "Website থাকলে কি আমার Facebook marketing বন্ধ করতে হবে?",
+    question: "Website থাকলে কি আমার Facebook marketing বন্ধ করতে হবে?",
     answer:
       "কখনোই না। Facebook থাকবে আপনার discovery channel — মানুষ সেখান থেকে আপনাকে চিনবে। আর website হবে conversion engine — যেখানে এসে তারা trust করে কিনবে। দুটো মিলে যে synergy তৈরি হয়, সেটাই আজকের সবচেয়ে successful SME-দের formula।",
   },
@@ -42,8 +39,7 @@ export const SME_FAQS: readonly FAQ[] = [
 
 export const CUSTOM_FAQS: readonly FAQ[] = [
   {
-    question:
-      "Ready-made software (যেমন existing ERP tools) ব্যবহার না করে custom কেন বানাবো?",
+    question: "Ready-made software (যেমন existing ERP tools) ব্যবহার না করে custom কেন বানাবো?",
     answer:
       "Ready-made software আপনাকে তার rules অনুসরণ করতে বাধ্য করে। কিন্তু আপনার business unique — workflow, terminology, এমনকি অনেক সময় regulation-ও আলাদা। Custom software আপনার exact ভাবে কাজ করে, কোনো অপ্রয়োজনীয় feature-এর জন্য আপনাকে টাকা দিতে হয় না, এবং কোনো monthly per-user fee নেই — long-run এ এটাই সবচেয়ে সাশ্রয়ী।",
   },
@@ -58,8 +54,7 @@ export const CUSTOM_FAQS: readonly FAQ[] = [
       "প্রতিটি Inievo build-এর সাথে আমরা: (১) একটি Bangla-friendly admin dashboard, (২) সম্পূর্ণ source code এবং deployment credentials, এবং (৩) আপনার team-এর জন্য hands-on training দেই। চাইলে আমরা SLA-backed care plan-এও থাকতে পারি, কিন্তু আপনি কখনো আমাদের উপর dependent হবেন না।",
   },
   {
-    question:
-      "ভবিষ্যতে নতুন features add করতে কি নতুন করে সব বানাতে হবে?",
+    question: "ভবিষ্যতে নতুন features add করতে কি নতুন করে সব বানাতে হবে?",
     answer:
       "একদমই না। আমরা clean architecture follow করি — প্রতিটি module আলাদা ভাবে design করা হয় যাতে নতুন feature যোগ করতে দিন লাগে, সপ্তাহ নয়। এটাই custom-built software-এর সবচেয়ে বড় সুবিধা।",
   },
@@ -77,14 +72,12 @@ export const PRO_FAQS: readonly FAQ[] = [
       "আজকের patient বা client সবার আগে Google-এ আপনাকে search করে। যদি প্রথম page-এ আপনার নিজের website না থাকে, তাহলে তারা random review site বা competitor-এর pages দেখে — যা আপনার reputation-এর সম্পূর্ণ control আপনার বাইরে নিয়ে যায়। একটি professional website মানে আপনার credentials, publications, এবং appointment booking — সবকিছু আপনার নিজের narrative-এ।",
   },
   {
-    question:
-      "আমার social media account তো আছেই। Website কি আলাদা প্রয়োজন?",
+    question: "আমার social media account তো আছেই। Website কি আলাদা প্রয়োজন?",
     answer:
       "Social media হলো conversation-এর জায়গা, কিন্তু verification-এর জন্য মানুষ এখনো website দেখে। বিদেশে গেলে দেখবেন — প্রতিটি respected professional-এর নিজের domain-এ একটি personal site আছে। বাংলাদেশে এটা এখনো rare — মানে এটাই আপনার আলাদা ভাবে stand out করার সুযোগ।",
   },
   {
-    question:
-      "আমি tech-savvy না। আমি কি নিজে website update করতে পারবো?",
+    question: "আমি tech-savvy না। আমি কি নিজে website update করতে পারবো?",
     answer:
       "হ্যাঁ — আমরা একটি extremely simple admin panel দেই যেখান থেকে নতুন publication, award, বা media appearance যোগ করা যায় Facebook post দেওয়ার মতোই সহজে। চাইলে আপনি আমাদের quarterly content refresh service-ও নিতে পারেন — তাহলে আপনাকে কিছুই করতে হবে না।",
   },
@@ -94,8 +87,7 @@ export const PRO_FAQS: readonly FAQ[] = [
       "অবশ্যই — এবং এটা SME website-এর চেয়েও দ্রুত rank করে কারণ আপনার নামের সাথে competition নেই। আমরা প্রতিটি pro-presence website schema markup, proper meta data, এবং publication-rich content দিয়ে launch করি — যাতে আপনার নাম search করলে প্রথম result-এ আপনার site আসে।",
   },
   {
-    question:
-      "Website বানালে কি আমার consultation বা client বাড়বে?",
+    question: "Website বানালে কি আমার consultation বা client বাড়বে?",
     answer:
       "আমাদের client data বলে — হ্যাঁ, এবং তা প্রায় ৬ মাসের মধ্যে measurable হয়। একজন senior cardiologist-এর case-এ inbound consultation request ৩ গুণ বেড়েছিল প্রথম বছরেই। তবে আরও বড় ব্যাপার হলো — আপনার client-এর quality উন্নত হয়, কারণ তারা ইতিমধ্যেই আপনার credentials এবং approach দেখে এসে কথা বলে।",
   },

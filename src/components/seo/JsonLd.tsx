@@ -37,11 +37,7 @@ export function organizationSchema(): SchemaObject {
       addressCountry: "BD",
     },
     sameAs: SOCIAL_LINKS.map((s) => s.href),
-    serviceType: [
-      "Web Development",
-      "Custom Software",
-      "Professional Web Presence",
-    ],
+    serviceType: ["Web Development", "Custom Software", "Professional Web Presence"],
     description: SITE_CONFIG.description,
   };
 }
@@ -142,9 +138,7 @@ export function jsonLdScript(schema: SchemaObject) {
 }
 
 function humanizeSegment(seg: string): string {
-  return seg
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 /**
@@ -155,7 +149,6 @@ export function JsonLd({ schema }: { schema: SchemaObject }) {
   return (
     <script
       type="application/ld+json"
-      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );

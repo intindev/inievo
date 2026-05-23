@@ -41,7 +41,7 @@ function Stat({
           {suffix}
         </span>
       </p>
-      <p className="mt-3 text-sm font-semibold uppercase tracking-[0.18em] text-foreground/90">
+      <p className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-foreground/90">
         {label}
       </p>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
@@ -54,13 +54,13 @@ export function StatsSection() {
   const inView = useInView(ref, { once: true, amount: 0.6 });
 
   return (
-    <section ref={ref} className="relative w-full py-24 sm:py-32">
+    <section ref={ref} className="relative w-full py-24 sm:py-32 bg-background">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand">
             Proof, not promises
           </p>
-          <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             A results-driven digital studio delivering measurable impact.
           </h2>
         </div>

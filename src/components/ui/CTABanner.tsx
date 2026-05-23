@@ -1,15 +1,12 @@
 /**
  * CTABanner — full-width closing call-to-action used across service pages.
  *
- * Dark gradient with brand glow, headline, supporting copy, and a primary
- * button that defaults to /contact.
+ * Light premium gradient box with strong typography and a primary CTA.
  */
 
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 
 interface CTABannerProps {
   title: string;
@@ -20,47 +17,32 @@ interface CTABannerProps {
 
 export function CTABanner({ title, subtitle, label, href = "/contact" }: CTABannerProps) {
   return (
-    <section className="relative isolate overflow-hidden py-24 sm:py-28">
-      <div
-        className="absolute inset-x-4 inset-y-6 -z-10 rounded-3xl sm:inset-x-8"
-        style={{ backgroundImage: "linear-gradient(135deg, #0a0f1e 0%, #0d1a2e 100%)" }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{
-          background: "radial-gradient(circle, rgba(19,126,206,0.35), transparent 60%)",
-          filter: "blur(110px)",
-        }}
-      />
+    <section className="relative isolate overflow-hidden py-24 sm:py-32 bg-background">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6 }}
-        className="mx-auto max-w-3xl px-8 text-center"
+        className="container mx-auto px-4 md:px-6"
       >
-        <h2 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-          {title}
-        </h2>
-        {subtitle && (
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/70">
-            {subtitle}
-          </p>
-        )}
-        <div className="mt-8">
-          <Button
-            asChild
-            size="lg"
-            className="group h-12 rounded-full bg-brand px-7 text-brand-foreground shadow-[0_12px_40px_-12px_rgba(19,126,206,0.8)] hover:bg-brand-deep"
-          >
-            <Link to={href}>
-              <span className="inline-flex items-center gap-2 font-medium">
-                {label}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
+        <div className="mx-auto flex max-w-5xl flex-col items-center justify-center rounded-[2.5rem] bg-foreground px-8 py-20 text-center text-background shadow-lg md:px-20 md:py-28">
+          <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
+            {title}
+          </h2>
+          {subtitle && (
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-background/80 md:text-xl">
+              {subtitle}
+            </p>
+          )}
+          <div className="mt-12 flex justify-center">
+            <Link
+              to={href}
+              className="group inline-flex h-14 items-center justify-center rounded-full bg-brand px-10 text-sm font-bold uppercase tracking-wider text-brand-foreground shadow-sm transition-all hover:-translate-y-1 hover:bg-brand-deep hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-foreground"
+            >
+              {label}
+              <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
-          </Button>
+          </div>
         </div>
       </motion.div>
     </section>

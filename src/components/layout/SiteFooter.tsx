@@ -1,178 +1,159 @@
-/**
- * SiteFooter — 4-column responsive footer for Inievo Technologies.
- *
- * Columns: brand + socials, services, company, contact.
- * Bottom bar: copyright, "Built with passion in Bangladesh", legal links.
- *
- * Each column animates in via Framer Motion `whileInView` with a staggered
- * delay; viewport={{ once: true, margin: "-100px" }} keeps it cheap.
- */
-
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
-import type { ComponentType, SVGProps } from "react";
+import { ArrowUpRight, Github, Twitter, Linkedin, Mail, MapPin } from "lucide-react";
+import { SITE_CONFIG, COMPANY_LINKS, SERVICE_LINKS } from "@/lib/constants";
 
-import { Button } from "@/components/ui/button";
-import {
-  COMPANY_LINKS,
-  CTA,
-  
-  SERVICE_LINKS,
-  SITE_CONFIG,
-  SOCIAL_LINKS,
-} from "@/lib/constants";
-import type { IconName, NavLink } from "@/lib/types";
-
-type IconCmp = ComponentType<SVGProps<SVGSVGElement>>;
-const SOCIAL_ICONS: Partial<Record<IconName, IconCmp>> = {
-  linkedin: Linkedin,
-  github: Github,
-  twitter: Twitter,
+const FOOTER_LINKS = {
+  socials: [
+    { icon: Twitter, href: SITE_CONFIG.social.twitter, label: "Twitter" },
+    { icon: Github, href: SITE_CONFIG.social.github, label: "GitHub" },
+    { icon: Linkedin, href: SITE_CONFIG.social.linkedin, label: "LinkedIn" },
+  ],
 };
-
-function Column({
-  title,
-  links,
-  delay,
-}: {
-  title: string;
-  links: readonly NavLink[];
-  delay: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
-    >
-      <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-white/70">
-        {title}
-      </h3>
-      <ul className="space-y-2.5">
-        {links.map((l) => (
-          <li key={l.href}>
-            <Link
-              to={l.href}
-              className="text-sm text-white/85 transition-colors hover:text-white"
-            >
-              {l.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </motion.div>
-  );
-}
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 bg-[#137ECE] text-white">
-      <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-            <Link to="/" className="flex items-center">
-              <img
-                src="https://res.cloudinary.com/dp5ap39r6/image/upload/v1777712181/inievo_full_logo_png_dydmze.png"
-                alt={SITE_CONFIG.name}
-                className="block h-9 w-auto brightness-0 invert"
-              />
+    <footer className="border-t border-border/60 bg-background pt-24 pb-12 text-foreground">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {/* Brand & Intro */}
+          <div className="flex flex-col gap-6 lg:col-span-1">
+            <Link
+              to="/"
+              className="group flex items-center gap-3 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 rounded-sm"
+            >
+              <div className="grid h-8 w-8 place-items-center overflow-hidden rounded-md bg-brand shadow-sm transition-transform duration-300 group-hover:scale-105">
+                <img
+                  src={SITE_CONFIG.logo}
+                  alt={`${SITE_CONFIG.name} Logo`}
+                  className="h-5 w-auto object-contain brightness-0 invert"
+                  loading="lazy"
+                />
+              </div>
+              <span className="font-display text-xl font-bold tracking-tight text-foreground">
+                {SITE_CONFIG.name}
+              </span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/80">
-              {SITE_CONFIG.tagline}
-              <br />
-              <span className="text-white/70">A studio for ambitious teams.</span>
+            <p className="text-sm leading-relaxed text-muted-foreground pr-4">
+              {SITE_CONFIG.description}
             </p>
-            <ul className="mt-5 flex items-center gap-2">
-              {SOCIAL_LINKS.map((s) => {
-                const Icon = SOCIAL_ICONS[s.icon];
-                if (!Icon) return null;
+            <div className="flex items-center gap-3 mt-2">
+              {FOOTER_LINKS.socials.map((social) => {
+                const Icon = social.icon;
                 return (
-                  <li key={s.href}>
-                    <a
-                      href={s.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={s.label}
-                      className="grid h-9 w-9 place-items-center rounded-full border border-white/30 text-white/80 transition-colors hover:border-white hover:bg-white/10 hover:text-white"
-                    >
-                      <Icon className="h-4 w-4" />
-                    </a>
-                  </li>
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={social.label}
+                    className="grid h-10 w-10 place-items-center rounded-full border border-border/80 bg-background text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-brand/40 hover:bg-secondary hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 active:scale-95"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
                 );
               })}
-            </ul>
-          </motion.div>
+            </div>
+          </div>
 
-          <Column title="Services" links={SERVICE_LINKS} delay={0.08} />
-          <Column title="Company" links={COMPANY_LINKS} delay={0.16} />
+          {/* Services & Company Links */}
+          <div className="flex flex-col gap-6 lg:pl-8">
+            <div>
+              <h3 className="font-display text-xs font-semibold tracking-wider uppercase text-foreground mb-4">
+                Services
+              </h3>
+              <ul className="flex flex-col gap-4">
+                {SERVICE_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      to={link.href}
+                      className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 rounded-sm"
+                    >
+                      {link.label}
+                      <ArrowUpRight className="h-3 w-3 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 group-hover:text-brand" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: 0.24, ease: "easeOut" }}
-          >
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-white/70">
-              Get in touch
+            <div className="mt-2">
+              <h3 className="font-display text-xs font-semibold tracking-wider uppercase text-foreground mb-4">
+                Company
+              </h3>
+              <ul className="flex flex-col gap-4">
+                {COMPANY_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      to={link.href}
+                      className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 rounded-sm"
+                    >
+                      {link.label}
+                      <ArrowUpRight className="h-3 w-3 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 group-hover:text-brand" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Contact Details */}
+          <div className="flex flex-col gap-6">
+            <h3 className="font-display text-xs font-semibold tracking-wider uppercase text-foreground">
+              Contact
             </h3>
-            <ul className="space-y-3 text-sm">
+            <ul className="flex flex-col gap-6">
               <li>
                 <a
                   href={`mailto:${SITE_CONFIG.email}`}
-                  className="inline-flex items-center gap-2 text-white/85 hover:text-white"
+                  className="group flex items-start gap-4 text-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 rounded-sm"
                 >
-                  <Mail className="h-4 w-4" />
-                  {SITE_CONFIG.email}
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-secondary/80 text-muted-foreground transition-colors group-hover:bg-brand/10 group-hover:text-brand">
+                    <Mail className="h-4 w-4" />
+                  </span>
+                  <div className="flex flex-col pt-0.5">
+                    <span className="font-semibold text-foreground tracking-tight">Email us</span>
+                    <span className="text-xs mt-1">{SITE_CONFIG.email}</span>
+                  </div>
                 </a>
               </li>
               <li>
-                <a
-                  href={`tel:${SITE_CONFIG.phone.replace(/\s/g, "")}`}
-                  className="inline-flex items-center gap-2 text-white/85 hover:text-white"
-                >
-                  <Phone className="h-4 w-4" />
-                  {SITE_CONFIG.phone}
-                </a>
-              </li>
-              <li className="inline-flex items-center gap-2 text-white/85">
-                <MapPin className="h-4 w-4" />
-                {SITE_CONFIG.address}
+                <div className="flex items-start gap-4 text-sm text-muted-foreground">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-secondary/80 text-muted-foreground">
+                    <MapPin className="h-4 w-4" />
+                  </span>
+                  <div className="flex flex-col pt-0.5">
+                    <span className="font-semibold text-foreground tracking-tight">Location</span>
+                    <span className="text-xs mt-1">{SITE_CONFIG.address}</span>
+                  </div>
+                </div>
               </li>
             </ul>
-            <Button
-              asChild
-              size="sm"
-              className="mt-5 bg-white text-[#137ECE] hover:bg-white/90"
-            >
-              <Link to={CTA.primary.href}>{CTA.primary.label}</Link>
-            </Button>
-          </motion.div>
+          </div>
+
+          {/* CTA Box */}
+          <div className="flex flex-col gap-4 lg:col-span-1">
+            <div className="rounded-3xl border border-border/60 bg-secondary/30 p-8 shadow-sm transition-colors hover:border-border">
+              <h3 className="font-display text-base font-semibold tracking-tight text-foreground">
+                Start a project
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Ready to build something extraordinary? Let's discuss your next digital platform.
+              </p>
+              <Link
+                to="/contact"
+                className="mt-6 flex h-11 w-full items-center justify-center rounded-full bg-foreground text-[11px] font-bold uppercase tracking-wider text-background transition-all hover:bg-brand hover:text-brand-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 active:scale-95 shadow-sm hover:shadow-md"
+              >
+                Reach out
+              </Link>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/20 pt-6 text-xs text-white/70 sm:flex-row sm:items-center">
+        {/* Bottom Bar */}
+        <div className="mt-20 flex flex-col items-center justify-center gap-6 border-t border-border/60 pt-8 text-xs font-medium text-muted-foreground md:flex-row">
           <p>
             © {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
           </p>
-          
-          <div className="flex items-center gap-4">
-            <Link to="/" className="hover:text-white">
-              Privacy Policy
-            </Link>
-            <span aria-hidden>·</span>
-            <Link to="/" className="hover:text-white">
-              Terms of Service
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

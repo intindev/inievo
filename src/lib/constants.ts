@@ -19,6 +19,12 @@ export const SITE_CONFIG = {
   address: "Chattogram, Bangladesh",
   founder: "Abu Md. Selim",
   locale: "en-US",
+  logo: "https://res.cloudinary.com/dp5ap39r6/image/upload/v1777712162/6_ot5ui5.png",
+  social: {
+    twitter: "https://x.com/inievo",
+    github: "https://github.com/inievo",
+    linkedin: "https://www.linkedin.com/company/inievo",
+  },
 } as const;
 
 export const NAV_LINKS: readonly NavLink[] = [
@@ -80,13 +86,15 @@ export const COMPANY_LINKS: readonly NavLink[] = [
 
 /** Brand color tokens mirrored for runtime use (charts, inline SVG, etc.). */
 export const BRAND_COLORS = {
-  primary: "#137ece",      // brand blue
-  deep: "#0f68ad",         // brand deep blue
-  tint: "#e8f2fb",         // brand soft blue tint
-  ink: "#111827",          // heading/text color
-  paper: "#f7f8fa",        // base light background
-  highlight: "#a87400",    // premium gold/yellow accent
-  highlightSoft: "#f6e7b2" // soft gold/yellow highlight
+  primary: "#137ece", // brand blue
+  deep: "#0f68ad", // brand deep blue
+  tint: "#e8f2fb", // brand soft blue tint
+  brandSoft: "#e8f2fb", // soft blue alias
+  ink: "#111827", // heading/text color
+  paper: "#f7f8fa", // base light background
+  highlight: "#a87400", // premium gold/yellow accent
+  highlightSoft: "#fdfbf3", // extremely light gold highlight background
+  highlightForeground: "#5c3e00", // high-contrast gold/brown text
 } as const;
 
 export const SOCIAL_LINKS: readonly SocialLink[] = [
@@ -105,8 +113,9 @@ export const FOOTER_NOTE = "";
 
 export const HERO_CONTENT = {
   eyebrow: "Elite Software Engineering & Design Studio",
-  headlineLead: "We architect",
-  rotatingWords: ["Systems", "Experiences", "Identities", "Platforms"] as const,
+  headlineStatic1: "Architecting",
+  headlineHighlight: "high-fidelity",
+  headlineStatic2: "digital systems.",
   subheadline:
     "We partner with ambitious founders, established professionals, and growing enterprises to craft enduring digital platforms that blend structural integrity with timeless design.",
   primaryCta: { label: "Initiate Project", href: "/contact" },
@@ -125,6 +134,77 @@ export const TRUST_BAR_ITEMS = [
   "Hyperlocal Product Research",
   "Chattagram, Bangladesh",
 ] as const;
+
+export const HOME_CAPABILITIES = {
+  title: "Capabilities.",
+  description:
+    "We bridge the gap between heavy engineering and high-end design, delivering platforms that are as robust as they are beautiful.",
+  viewAllText: "View full services",
+  items: [
+    {
+      title: "Web Systems",
+      description:
+        "High-performance digital foundations tailored for growing enterprises. We build highly optimized, SEO-ready platforms that drive conversion and establish market authority.",
+      href: "/services/sme-web-presence",
+      metrics: ["100/100 Core Web Vitals", "Sub-second LCP"],
+    },
+    {
+      title: "Bespoke Engineering",
+      description:
+        "Proprietary software architectures engineered to scale. From complex SaaS infrastructure to high-throughput internal tools, we deliver structural integrity without compromise.",
+      href: "/services/custom-software",
+      metrics: ["Microservices", "Real-time sync"],
+    },
+    {
+      title: "Brand Systems",
+      description:
+        "Editorial-grade digital identities that command attention. We translate business logic into stunning visual experiences, ensuring every touchpoint feels undeniably premium.",
+      href: "/services/pro-presence",
+      metrics: ["Design Tokens", "Fluid Typography"],
+    },
+  ],
+} as const;
+
+export const OPERATING_PRINCIPLES = {
+  title: "Operating Model.",
+  description:
+    "We don't assemble templates. We engineer bespoke platforms from the ground up, utilizing modern primitives and strict architectural discipline.",
+  items: [
+    {
+      num: "01",
+      title: "Type-Safe Architecture",
+      desc: "Every layer, from database schemas to client UI, is strictly typed. We eliminate runtime surprises before they happen.",
+    },
+    {
+      num: "02",
+      title: "Edge-First Performance",
+      desc: "We deploy to the edge by default. Assets are optimized, queries are cached, and latency is minimized across the globe.",
+    },
+    {
+      num: "03",
+      title: "Semantic Design Systems",
+      desc: "We don't rely on massive UI libraries. We build bespoke, semantic CSS variable systems that guarantee absolute token integrity.",
+    },
+    {
+      num: "04",
+      title: "Uncompromising Accessibility",
+      desc: "Digital experiences should be universal. We engineer with ARIA standards, keyboard navigation, and structural semantics baked in.",
+    },
+  ],
+} as const;
+
+export const FINAL_CTA_CONTENT = {
+  headline: "Ready to build?",
+  subheadline:
+    "Whether you need a bespoke platform or a complete brand transformation, we are ready to engineer your vision.",
+  ctaLabel: "Start a Conversation",
+  ctaHref: "/contact",
+} as const;
+
+export const HOME_TESTIMONIALS_CONTENT = {
+  headline: "Client Outcomes.",
+  subheadline: "What leaders say about partnering with our studio.",
+} as const;
 
 export const STATS = [
   {
@@ -186,7 +266,7 @@ export const TEAM_MEMBERS = [
     bio: "Directs hyperlocal user research and coordinates internal product labs.",
     linkedin: "#",
   },
- ] as const;
+] as const;
 
 export const TESTIMONIALS = [
   {
@@ -215,7 +295,10 @@ export const TESTIMONIALS = [
   },
 ] as const;
 
-export { BLOG_POST_SEEDS as BLOG_POSTS, BLOG_CATEGORIES_FULL as BLOG_CATEGORIES } from "@/data/blog-posts";
+export {
+  BLOG_POST_SEEDS as BLOG_POSTS,
+  BLOG_CATEGORIES_FULL as BLOG_CATEGORIES,
+} from "@/data/blog-posts";
 
 export const SERVICE_INTEREST_OPTIONS = [
   "Web Systems",

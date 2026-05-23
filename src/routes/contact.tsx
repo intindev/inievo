@@ -1,305 +1,206 @@
-/**
- * Contact — two-column layout with validated react-hook-form contact form,
- * WhatsApp quick-connect, and an embedded map placeholder.
- */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute } from "@tanstack/react-router";
-import { AnimatePresence, motion } from "framer-motion";
-import { CheckCircle2, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { ServicePageHero } from "@/components/ui/ServicePageHero";
-import {
-  BUDGET_OPTIONS,
-  SERVICE_INTEREST_OPTIONS,
-  SITE_CONFIG,
-  WHATSAPP_NUMBER,
-} from "@/lib/constants";
-import { cn } from "@/lib/utils";
-
-import { breadcrumbSchema, jsonLdScript } from "@/components/seo/JsonLd";
-import { SEO_CONFIG, buildHead } from "@/lib/seo";
+import { buildHead } from "@/lib/seo";
+import { SITE_CONFIG } from "@/lib/constants";
 
 export const Route = createFileRoute("/contact")({
-  head: () =>
-    buildHead("contact", {
-      scripts: [jsonLdScript(breadcrumbSchema(SEO_CONFIG.contact.path))],
-    }),
-  component: Page,
+  head: () => buildHead("Contact"),
+  component: ContactPage,
 });
 
-const contactSchema = z.object({
-  name: z.string().trim().min(2, "Please enter your name.").max(100),
-  email: z.string().trim().email("Enter a valid email address.").max(255),
-  phone: z
-    .string()
-    .trim()
-    .max(40)
-    .regex(/^[+\d\s\-()]*$/u, "Phone can only contain digits and + - ( ).")
-    .optional()
-    .or(z.literal("")),
-  service: z.enum(SERVICE_INTEREST_OPTIONS),
-  budget: z.enum(BUDGET_OPTIONS),
-  message: z
-    .string()
-    .trim()
-    .min(10, "Tell us a little more — at least 10 characters.")
-    .max(2000),
+const contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  project: z.string().min(10, "Please provide a few more details about your project"),
 });
-type ContactValues = z.infer<typeof contactSchema>;
 
-const REASONS = [
-  "Senior team — no junior hand-offs",
-  "Research-led, evidence over opinion",
-  "Transparent pricing and timelines",
-  "Small portfolio. Long partnerships.",
-] as const;
+type ContactFormValues = z.infer<typeof contactFormSchema>;
 
-function Page() {
-  const [submitted, setSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+function ContactPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
-  } = useForm<ContactValues>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: {
-      service: SERVICE_INTEREST_OPTIONS[0],
-      budget: BUDGET_OPTIONS[1],
-    },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
   });
 
-  const onSubmit = handleSubmit(async () => {
-    setSubmitError(null);
-    try {
-      // Placeholder — wire to a server function or email service later.
-      await new Promise((r) => setTimeout(r, 600));
-      setSubmitted(true);
-      reset();
-    } catch {
-      setSubmitError("Something went wrong. Please try again or use WhatsApp.");
-    }
-  });
+  const onSubmit = async (data: ContactFormValues) => {
+    setIsSubmitting(true);
+    // Simulate network request
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    console.log("Form submitted:", data);
+    setIsSubmitting(false);
+    setIsSuccess(true);
+    reset();
 
-  const waHref = `https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g, "")}`;
+    // Reset success message after 5 seconds
+    setTimeout(() => setIsSuccess(false), 5000);
+  };
 
   return (
-    <main>
-      <ServicePageHero
-        tag="Say hello"
-        title="Tell us about your project."
-        subtitle="We read every message. Expect a thoughtful reply within one business day."
-      />
+    <main className="min-h-screen bg-background pt-32 pb-24 text-foreground">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col lg:col-span-5 lg:pr-12"
+          >
+            <h1 className="font-display text-5xl font-semibold tracking-tight md:text-6xl">
+              Let's build.
+            </h1>
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+              Whether you are scaling a mature platform or initiating a new brand identity, we are
+              ready to partner with you. Fill out the form, and our lead engineer will be in touch
+              directly.
+            </p>
 
-      <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
-          {/* Left — info */}
-          <aside className="space-y-10">
-            <div className="space-y-4 text-sm">
-              <a
-                href={`mailto:${SITE_CONFIG.email}`}
-                className="flex items-center gap-3 text-foreground hover:text-brand"
-              >
-                <Mail className="h-4 w-4 text-brand" /> {SITE_CONFIG.email}
-              </a>
-              <a
-                href={`tel:${SITE_CONFIG.phone.replace(/\s/g, "")}`}
-                className="flex items-center gap-3 text-foreground hover:text-brand"
-              >
-                <Phone className="h-4 w-4 text-brand" /> {SITE_CONFIG.phone}
-              </a>
-              <p className="flex items-center gap-3 text-muted-foreground">
-                <MapPin className="h-4 w-4 text-brand" /> {SITE_CONFIG.address}
-              </p>
-            </div>
-
-            <a
-              href={waHref}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label="Chat with us on WhatsApp"
-              className="inline-flex items-center gap-3 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_-12px_rgba(37,211,102,0.7)] transition-transform hover:-translate-y-0.5"
-            >
-              <MessageCircle className="h-4 w-4" /> Quick chat on WhatsApp
-            </a>
-
-            <div>
-              <h2 className="text-xs font-semibold uppercase tracking-[0.24em] text-brand">
-                Why work with Inievo
-              </h2>
-              <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-                {REASONS.map((r) => (
-                  <li key={r} className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand" />
-                    {r}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="overflow-hidden rounded-2xl border border-border">
-              <iframe
-                title="Inievo office location"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=91.78%2C22.30%2C91.86%2C22.38&layer=mapnik"
-                loading="lazy"
-                className="h-56 w-full border-0"
-              />
-            </div>
-          </aside>
-
-          {/* Right — form */}
-          <div className="rounded-3xl border border-border bg-card p-6 sm:p-10">
-            <AnimatePresence mode="wait">
-              {submitted ? (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.35 }}
-                  className="flex flex-col items-start gap-4 py-8"
+            <div className="mt-16 flex flex-col gap-10">
+              <div>
+                <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-foreground">
+                  Direct Line
+                </h3>
+                <a
+                  href={`mailto:${SITE_CONFIG.email}`}
+                  className="mt-3 inline-block text-lg font-medium text-muted-foreground transition-colors hover:text-brand"
                 >
-                  <span className="grid h-12 w-12 place-items-center rounded-full bg-brand/10 text-brand ring-1 ring-brand/30">
-                    <CheckCircle2 className="h-6 w-6" />
-                  </span>
-                  <h2 className="font-display text-2xl font-semibold text-foreground">
-                    Message received.
-                  </h2>
-                  <p className="text-sm text-muted-foreground">
-                    Thank you. We'll be in touch within one business day.
+                  {SITE_CONFIG.email}
+                </a>
+              </div>
+
+              <div>
+                <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-foreground">
+                  HQ
+                </h3>
+                <p className="mt-3 text-lg font-medium text-muted-foreground">
+                  {SITE_CONFIG.address}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7"
+          >
+            <div className="rounded-3xl border border-border/60 bg-secondary/30 p-8 shadow-sm md:p-12">
+              {isSuccess ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10 text-brand mb-6">
+                    <ArrowRight className="h-8 w-8" />
+                  </div>
+                  <h3 className="font-display text-2xl font-semibold text-foreground">
+                    Inquiry Received
+                  </h3>
+                  <p className="mt-4 text-muted-foreground max-w-sm">
+                    Thank you for reaching out. We will review your project details and respond
+                    shortly.
                   </p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="text-sm font-semibold text-brand hover:underline"
-                  >
-                    Send another message
-                  </button>
-                </motion.div>
+                </div>
               ) : (
-                <motion.form
-                  key="form"
-                  onSubmit={onSubmit}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="grid grid-cols-1 gap-5 sm:grid-cols-2"
-                  noValidate
-                >
-                  <Field label="Name" error={errors.name?.message}>
-                    <input
-                      {...register("name")}
-                      autoComplete="name"
-                      className={inputClass(!!errors.name)}
-                    />
-                  </Field>
-                  <Field label="Email" error={errors.email?.message}>
-                    <input
-                      {...register("email")}
-                      type="email"
-                      autoComplete="email"
-                      className={inputClass(!!errors.email)}
-                    />
-                  </Field>
-                  <Field label="Phone (optional)" error={errors.phone?.message}>
-                    <input
-                      {...register("phone")}
-                      type="tel"
-                      autoComplete="tel"
-                      className={inputClass(!!errors.phone)}
-                    />
-                  </Field>
-                  <Field label="Budget" error={errors.budget?.message}>
-                    <select {...register("budget")} className={inputClass(!!errors.budget)}>
-                      {BUDGET_OPTIONS.map((b) => (
-                        <option key={b} value={b}>
-                          {b}
-                        </option>
-                      ))}
-                    </select>
-                  </Field>
-                  <Field
-                    label="Service interest"
-                    error={errors.service?.message}
-                    className="sm:col-span-2"
-                  >
-                    <select {...register("service")} className={inputClass(!!errors.service)}>
-                      {SERVICE_INTEREST_OPTIONS.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
-                      ))}
-                    </select>
-                  </Field>
-                  <Field
-                    label="Project description"
-                    error={errors.message?.message}
-                    className="sm:col-span-2"
-                  >
-                    <textarea
-                      {...register("message")}
-                      rows={5}
-                      className={inputClass(!!errors.message)}
-                    />
-                  </Field>
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+                  <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                    <div className="flex flex-col gap-2">
+                      <label
+                        htmlFor="name"
+                        className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                      >
+                        Full Name
+                      </label>
+                      <input
+                        {...register("name")}
+                        id="name"
+                        type="text"
+                        disabled={isSubmitting}
+                        className="h-12 border-b border-border bg-transparent text-foreground placeholder:text-muted-foreground/50 focus:border-brand focus:outline-none focus:ring-0 transition-colors disabled:opacity-50"
+                        placeholder="Jane Doe"
+                      />
+                      {errors.name && (
+                        <span className="text-xs text-destructive mt-1">{errors.name.message}</span>
+                      )}
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label
+                        htmlFor="email"
+                        className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                      >
+                        Email Address
+                      </label>
+                      <input
+                        {...register("email")}
+                        id="email"
+                        type="email"
+                        disabled={isSubmitting}
+                        className="h-12 border-b border-border bg-transparent text-foreground placeholder:text-muted-foreground/50 focus:border-brand focus:outline-none focus:ring-0 transition-colors disabled:opacity-50"
+                        placeholder="jane@company.com"
+                      />
+                      {errors.email && (
+                        <span className="text-xs text-destructive mt-1">
+                          {errors.email.message}
+                        </span>
+                      )}
+                    </div>
+                  </div>
 
-                  {submitError && (
-                    <p
-                      role="alert"
-                      className="sm:col-span-2 rounded-md bg-destructive/10 p-3 text-sm text-destructive"
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="project"
+                      className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                     >
-                      {submitError}
-                    </p>
-                  )}
+                      Project Details
+                    </label>
+                    <textarea
+                      {...register("project")}
+                      id="project"
+                      rows={4}
+                      disabled={isSubmitting}
+                      className="resize-none border-b border-border bg-transparent pt-3 text-foreground placeholder:text-muted-foreground/50 focus:border-brand focus:outline-none focus:ring-0 transition-colors disabled:opacity-50"
+                      placeholder="Tell us about your objectives, timeline, and scope..."
+                    />
+                    {errors.project && (
+                      <span className="text-xs text-destructive mt-1">
+                        {errors.project.message}
+                      </span>
+                    )}
+                  </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="sm:col-span-2 mt-2 inline-flex h-12 items-center justify-center rounded-full bg-brand px-7 text-sm font-semibold text-brand-foreground shadow-[0_12px_40px_-12px_rgba(19,126,206,0.8)] transition-colors hover:bg-brand-deep disabled:opacity-60"
+                    className="group mt-4 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-foreground text-[13px] font-bold uppercase tracking-wider text-background shadow-sm transition-all hover:-translate-y-0.5 hover:bg-brand hover:text-brand-foreground hover:shadow-md focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70 md:w-auto md:px-12 md:self-end"
                   >
-                    {isSubmitting ? "Sending…" : "Send message"}
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        Submit Inquiry
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </>
+                    )}
                   </button>
-                </motion.form>
+                </form>
               )}
-            </AnimatePresence>
-          </div>
+            </div>
+          </motion.div>
         </div>
-      </section>
+      </div>
     </main>
-  );
-}
-
-function inputClass(hasError: boolean) {
-  return cn(
-    "w-full rounded-xl border bg-background px-4 py-3 text-sm text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40",
-    hasError ? "border-destructive" : "border-border focus:border-brand/60",
-  );
-}
-
-function Field({
-  label,
-  error,
-  children,
-  className,
-}: {
-  label: string;
-  error?: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <label className={cn("flex flex-col gap-2 text-sm", className)}>
-      <span className="font-medium text-foreground">{label}</span>
-      {children}
-      {error && (
-        <span role="alert" className="text-xs text-destructive">
-          {error}
-        </span>
-      )}
-    </label>
   );
 }

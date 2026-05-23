@@ -2,8 +2,7 @@
  * FAQAccordion — single-open accordion for service-page FAQs.
  *
  * Uses Framer Motion's AnimatePresence + height/opacity tween for smooth
- * expand/collapse. Buttons are real <button>s with aria-expanded /
- * aria-controls so the component is fully keyboard accessible.
+ * expand/collapse. Buttons are fully accessible with hover and focus states.
  */
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -23,7 +22,12 @@ export function FAQAccordion({ items, className }: FAQAccordionProps) {
   const baseId = useId();
 
   return (
-    <ul className={cn("divide-y divide-border rounded-2xl border border-border bg-card/40", className)}>
+    <ul
+      className={cn(
+        "divide-y divide-border/60 rounded-3xl border border-border/60 bg-secondary/30",
+        className,
+      )}
+    >
       {items.map((item, i) => {
         const isOpen = open === i;
         const panelId = `${baseId}-panel-${i}`;
@@ -36,13 +40,20 @@ export function FAQAccordion({ items, className }: FAQAccordionProps) {
               aria-expanded={isOpen}
               aria-controls={panelId}
               onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left transition-colors hover:bg-accent/40"
+              className="group flex w-full items-center justify-between gap-6 px-6 py-6 text-left transition-colors hover:bg-secondary/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand/40 sm:px-8 rounded-sm active:bg-secondary"
             >
-              <span className="text-base font-medium text-foreground">{item.question}</span>
               <span
                 className={cn(
-                  "grid h-8 w-8 shrink-0 place-items-center rounded-full border border-border bg-background text-foreground transition-transform duration-300",
-                  isOpen && "rotate-45 border-brand text-brand",
+                  "font-display text-base font-semibold transition-colors",
+                  isOpen ? "text-brand" : "text-foreground group-hover:text-foreground/80",
+                )}
+              >
+                {item.question}
+              </span>
+              <span
+                className={cn(
+                  "grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border/80 bg-background text-muted-foreground transition-all duration-300 group-hover:border-brand/30",
+                  isOpen && "rotate-45 border-brand/50 bg-brand/5 text-brand",
                 )}
               >
                 <Plus className="h-4 w-4" />
@@ -61,7 +72,7 @@ export function FAQAccordion({ items, className }: FAQAccordionProps) {
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <p className="px-6 pb-6 pr-16 text-sm leading-relaxed text-muted-foreground">
+                  <p className="px-6 pb-8 pr-16 text-base leading-relaxed text-muted-foreground sm:px-8">
                     {item.answer}
                   </p>
                 </motion.div>

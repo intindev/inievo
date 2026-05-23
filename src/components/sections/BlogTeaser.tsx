@@ -10,11 +10,11 @@ import { BLOG_POSTS } from "@/lib/constants";
 export function BlogTeaser() {
   const latest = BLOG_POSTS.slice(0, 2);
   return (
-    <section className="relative w-full py-24 sm:py-32">
+    <section className="relative w-full bg-background py-24 sm:py-32">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand">
               Field notes
             </p>
             <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
@@ -49,13 +49,11 @@ export function BlogTeaser() {
               <h3 className="mt-5 font-display text-xl font-semibold text-foreground transition-colors group-hover:text-brand">
                 {post.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {post.excerpt}
-              </p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
               <Link
                 to="/blog/$slug"
                 params={{ slug: post.slug }}
-                className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-foreground transition-colors hover:text-brand"
+                className="mt-auto inline-flex items-center gap-2 pt-6 text-[13px] font-semibold uppercase tracking-wide text-foreground transition-colors hover:text-brand"
                 aria-label={`Read ${post.title}`}
               >
                 Read article

@@ -32,7 +32,11 @@ export interface ServicePageData {
   readonly heroSubtitle: string;
   readonly ctaLabel: string;
   readonly faqs: readonly FAQ[];
-  readonly closingCta: { readonly title: string; readonly subtitle: string; readonly label: string };
+  readonly closingCta: {
+    readonly title: string;
+    readonly subtitle: string;
+    readonly label: string;
+  };
 }
 
 export const SME_PAGE: ServicePageData & {
@@ -95,8 +99,16 @@ export const SME_PAGE: ServicePageData & {
   ],
   process: [
     { step: "01", title: "Discover", description: "We audit your business, buyers, and goals." },
-    { step: "02", title: "Design", description: "A clickable prototype before a single line of code." },
-    { step: "03", title: "Build", description: "Engineered with performance and SEO from day one." },
+    {
+      step: "02",
+      title: "Design",
+      description: "A clickable prototype before a single line of code.",
+    },
+    {
+      step: "03",
+      title: "Build",
+      description: "Engineered with performance and SEO from day one.",
+    },
     { step: "04", title: "Launch", description: "We migrate, monitor, and stay on for 30 days." },
   ],
   faqs: [
@@ -112,8 +124,7 @@ export const SME_PAGE: ServicePageData & {
     },
     {
       question: "Will I be locked into a platform?",
-      answer:
-        "No. We hand you the keys: domain, hosting, source code, and dashboards are yours.",
+      answer: "No. We hand you the keys: domain, hosting, source code, and dashboards are yours.",
     },
     {
       question: "Do you handle payments and delivery?",
@@ -128,8 +139,7 @@ export const SME_PAGE: ServicePageData & {
   ],
   closingCta: {
     title: "Ready to Outgrow Facebook?",
-    subtitle:
-      "We'll audit your current presence and map a launch plan in a single 30-minute call.",
+    subtitle: "We'll audit your current presence and map a launch plan in a single 30-minute call.",
     label: "Let's Talk",
   },
 };
@@ -313,8 +323,7 @@ export const PRO_PAGE: ServicePageData & {
     },
     {
       question: "How long does it take?",
-      answer:
-        "Most professional websites launch within 2–3 weeks of our kickoff interview.",
+      answer: "Most professional websites launch within 2–3 weeks of our kickoff interview.",
     },
   ],
   closingCta: {

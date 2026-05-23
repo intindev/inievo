@@ -18,8 +18,7 @@ import { cn } from "@/lib/utils";
 type Variant = "primary" | "secondary" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg";
 
-export interface MotionButtonProps
-  extends Omit<HTMLMotionProps<"button">, "children"> {
+export interface MotionButtonProps extends Omit<HTMLMotionProps<"button">, "children"> {
   variant?: Variant;
   size?: Size;
   loading?: boolean;
@@ -42,8 +41,7 @@ const baseClasses =
 const variantClasses: Record<Variant, string> = {
   primary:
     "bg-brand text-brand-foreground shadow-[0_12px_40px_-16px_rgba(19,126,206,0.7)] hover:bg-brand-deep",
-  secondary:
-    "border border-border bg-card text-foreground hover:border-brand/60 hover:bg-brand/5",
+  secondary: "border border-border bg-card text-foreground hover:border-brand/60 hover:bg-brand/5",
   ghost: "bg-transparent text-foreground hover:text-brand",
   danger: "bg-destructive text-destructive-foreground hover:opacity-90",
 };

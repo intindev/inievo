@@ -1,11 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { BlogTeaser } from "@/components/sections/BlogTeaser";
 import { FinalCTASection } from "@/components/sections/FinalCTASection";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { LabsTeaser } from "@/components/sections/LabsTeaser";
 import { ServicesSection } from "@/components/sections/ServicesSection";
-import { StatsSection } from "@/components/sections/StatsSection";
 import { TechStackSection } from "@/components/sections/TechStackSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { TrustBar } from "@/components/sections/TrustBar";
@@ -21,20 +18,17 @@ export const Route = createFileRoute("/")({
 });
 
 /**
- * Inievo Technologies homepage. Sprints 2–4 assemble the hero, trust bar,
- * services grid, stats, labs teaser, testimonials, blog teaser, and final CTA.
+ * Inievo Technologies homepage.
+ * Premium light-first editorial-tech experience.
  */
 function HomePage() {
   return (
-    <main className="relative">
+    <main className="relative flex w-full flex-col items-center overflow-hidden bg-background">
       <HeroSection />
       <TrustBar />
-      <StatsSection />
       <ServicesSection />
-      <LabsTeaser />
       <TechStackSection />
       <TestimonialsSection />
-      <BlogTeaser />
       <FinalCTASection />
     </main>
   );

@@ -5,13 +5,7 @@
  * displays — so a stray mutation can never quietly corrupt a data source.
  */
 
-export type IconName =
-  | "linkedin"
-  | "github"
-  | "twitter"
-  | "dribbble"
-  | "instagram"
-  | "facebook";
+export type IconName = "linkedin" | "github" | "twitter" | "dribbble" | "instagram" | "facebook";
 
 export interface NavLink {
   readonly label: string;

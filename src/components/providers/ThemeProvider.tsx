@@ -1,6 +1,6 @@
 /**
- * ThemeProvider — wraps the app with `next-themes` so light/dark mode is
- * persisted to localStorage and applied via the `class` strategy on <html>.
+ * ThemeProvider — wraps the app with `next-themes` so light mode is
+ * applied consistently via the `class` strategy on <html>.
  *
  * We re-export `useTheme` for ergonomic imports from a single module.
  */
@@ -19,7 +19,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       defaultTheme="light"
       forcedTheme="light"
       enableSystem={false}
-      disableTransitionOnChange={false}
+      disableTransitionOnChange={true}
       storageKey="inievo-theme"
     >
       {children}

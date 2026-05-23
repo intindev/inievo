@@ -10,8 +10,7 @@ import { useEffect, useState } from "react";
 
 const LOGO_DARK_BG =
   "https://res.cloudinary.com/dp5ap39r6/image/upload/v1777712181/inievo_full_logo_png_dydmze.png";
-const ICON =
-  "https://res.cloudinary.com/dp5ap39r6/image/upload/v1777712162/6_ot5ui5.png";
+const ICON = "https://res.cloudinary.com/dp5ap39r6/image/upload/v1777712162/6_ot5ui5.png";
 
 export function LoadingScreen() {
   const [visible, setVisible] = useState(false);

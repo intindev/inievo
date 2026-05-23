@@ -1,66 +1,26 @@
-/**
- * SiteHeader — sticky, scroll-aware navigation for Inievo Technologies.
- *
- * Desktop: wordmark, animated underline nav, primary CTA.
- * Mobile (<768px): hamburger trigger that opens a full-screen slide-down
- * menu with staggered Framer Motion entrance.
- */
-
-import { Link, useLocation } from "@tanstack/react-router";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { useState, useEffect } from "react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { CTA, PRIMARY_NAV, SITE_CONFIG } from "@/lib/constants";
+import { SITE_CONFIG, PRIMARY_NAV } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-const LOGO_SRC =
-  "https://res.cloudinary.com/dp5ap39r6/image/upload/v1777712331/Inievo_v3ow3t.png";
-
-function Wordmark() {
-  return (
-    <Link to="/" className="group flex items-center" aria-label={SITE_CONFIG.name}>
-      <img
-        src={LOGO_SRC}
-        alt={SITE_CONFIG.name}
-        className="block h-8 w-auto transition-transform group-hover:scale-[1.03]"
-      />
-    </Link>
-  );
-}
-
-function DesktopNavLink({ href, label }: { href: string; label: string }) {
-  const { pathname } = useLocation();
-  const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
-  return (
-    <Link
-      to={href}
-      className={cn(
-        "group relative px-1 py-2 text-sm font-medium transition-colors",
-        isActive ? "text-neutral-900" : "text-neutral-600 hover:text-neutral-900",
-      )}
-    >
-      {label}
-      <span
-        className={cn(
-          "pointer-events-none absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-brand transition-transform duration-300 group-hover:scale-x-100",
-          isActive && "scale-x-100",
-        )}
-      />
-    </Link>
-  );
-}
-
 export function SiteHeader() {
-  const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const routerState = useRouterState();
+  const pathname = routerState.location.pathname;
 
-  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 50));
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close mobile menu on route change
-  const { pathname } = useLocation();
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
@@ -68,89 +28,147 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 w-full bg-white transition-shadow duration-300",
+        "fixed inset-x-0 top-0 z-50 w-full transition-all duration-500",
         scrolled
-          ? "border-b border-black/10 shadow-[0_8px_30px_-20px_rgba(0,0,0,0.25)]"
-          : "border-b border-transparent",
+          ? "bg-background/95 backdrop-blur-xl border-b border-border/50 shadow-sm py-4"
+          : "bg-background/0 border-b border-transparent py-6",
       )}
     >
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Wordmark />
-
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
-          {PRIMARY_NAV.map((item) => (
-            <DesktopNavLink key={item.href} href={item.href} label={item.label} />
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <Button
-            asChild
-            size="sm"
-            className="hidden bg-brand text-brand-foreground shadow-sm hover:bg-brand-deep md:inline-flex"
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="flex items-center justify-between">
+          <Link
+            to="/"
+            className="group relative flex items-center gap-3 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 rounded-sm"
           >
-            <Link to={CTA.primary.href}>{CTA.primary.label}</Link>
-          </Button>
+            <div className="grid h-8 w-8 place-items-center overflow-hidden rounded-md bg-brand shadow-sm transition-transform duration-300 group-hover:scale-105">
+              <img
+                src={SITE_CONFIG.logo}
+                alt={`${SITE_CONFIG.name} Logo`}
+                className="h-5 w-auto object-contain brightness-0 invert"
+                loading="eager"
+              />
+            </div>
+            <span className="font-display text-xl font-bold tracking-tight text-foreground">
+              {SITE_CONFIG.name}
+            </span>
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden items-center gap-8 md:flex">
+            {PRIMARY_NAV.map((item) => {
+              const isActive =
+                pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+              return (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={cn(
+                    "group relative px-1 py-2 text-[11px] font-bold uppercase tracking-[0.1em] transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 rounded-sm",
+                    isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {item.label}
+                  {isActive && (
+                    <motion.div
+                      layoutId="desktop-nav-underline"
+                      className="absolute -bottom-1 left-0 h-0.5 w-full bg-brand"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                  {!isActive && (
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand/30 transition-all duration-300 group-hover:w-full" />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:block">
+            <Link
+              to="/contact"
+              className="inline-flex h-10 items-center justify-center rounded-full bg-brand px-6 text-xs font-bold uppercase tracking-wider text-brand-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-deep hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              Get in touch
+            </Link>
+          </div>
+
+          {/* Mobile Menu Toggle */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            className="grid h-8 w-8 place-items-center rounded-none bg-[#137ECE] text-white shadow-sm transition-colors hover:bg-[#0f5fa3] md:hidden"
+            className="grid h-11 w-11 place-items-center rounded-full bg-transparent text-foreground transition-colors hover:bg-secondary md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 active:scale-95"
           >
-            {open ? <X className="h-4 w-4 text-white" /> : <Menu className="h-4 w-4 text-white" />}
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {open && (
           <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="md:hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="md:hidden overflow-hidden border-t border-border/50 bg-background/98 backdrop-blur-xl shadow-xl"
           >
-            <div className="border-t border-border/60 bg-background/95 backdrop-blur-xl">
-              <nav
-                className="mx-auto flex w-full max-w-7xl flex-col gap-1 px-4 py-6 sm:px-6"
-                aria-label="Mobile"
+            <nav className="container mx-auto flex flex-col gap-2 px-4 py-6">
+              <Link
+                to="/"
+                className="group flex flex-col py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 rounded-md px-3 hover:bg-secondary/50 active:bg-secondary"
               >
-                {PRIMARY_NAV.map((item, i) => (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05, duration: 0.25, ease: "easeOut" }}
-                  >
-                    <Link
-                      to={item.href}
-                      className="flex flex-col rounded-lg px-3 py-3 transition-colors hover:bg-accent"
-                    >
-                      <span className="text-base font-medium text-foreground">{item.label}</span>
-                      {item.description && (
-                        <span className="text-xs text-muted-foreground">{item.description}</span>
-                      )}
-                    </Link>
-                  </motion.div>
-                ))}
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: PRIMARY_NAV.length * 0.05, duration: 0.25 }}
-                  className="mt-3"
+                <span
+                  className={cn(
+                    "text-sm font-semibold uppercase tracking-wide transition-colors",
+                    pathname === "/"
+                      ? "text-brand"
+                      : "text-foreground/80 group-hover:text-foreground",
+                  )}
                 >
-                  <Button
-                    asChild
-                    className="w-full bg-brand text-brand-foreground hover:bg-brand-deep"
+                  Home
+                </span>
+                <span className="mt-1 text-xs text-muted-foreground/70">
+                  Return to the main homepage
+                </span>
+              </Link>
+              {PRIMARY_NAV.map((item) => {
+                const isActive =
+                  pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                return (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className="group flex flex-col py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 rounded-md px-3 hover:bg-secondary/50 active:bg-secondary"
                   >
-                    <Link to={CTA.primary.href}>{CTA.primary.label}</Link>
-                  </Button>
-                </motion.div>
-              </nav>
-            </div>
+                    <span
+                      className={cn(
+                        "text-sm font-semibold uppercase tracking-wide transition-colors",
+                        isActive ? "text-brand" : "text-foreground/80 group-hover:text-foreground",
+                      )}
+                    >
+                      {item.label}
+                    </span>
+                    {item.description && (
+                      <span className="mt-1 text-xs text-muted-foreground/70">
+                        {item.description}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+              <div className="mt-6 px-3">
+                <Link
+                  to="/contact"
+                  className="flex h-12 w-full items-center justify-center rounded-full bg-brand text-[13px] font-bold uppercase tracking-wider text-brand-foreground shadow-sm transition-all hover:bg-brand-deep hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 active:scale-95"
+                >
+                  Get in touch
+                </Link>
+              </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
